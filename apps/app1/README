@@ -1,0 +1,5 @@
+Example from https://www.ag-grid.com/react-data-grid/server-side-model-sorting/
+
+To run this, only do
+npm install http-server -g
+http-server ./ -p 1313
