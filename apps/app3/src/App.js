@@ -2,13 +2,14 @@ import "./App.css";
 import Table from "./Table.js";
 import React, { useState } from "react";
 
+import { ModuleRegistry } from "@ag-grid-community/core";
+import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
+
+ModuleRegistry.registerModules([RowGroupingModule]);
+
 function MyDrop({ value, onChange }) {
   return (
-    <select
-      name="select"
-      value={value}
-      onChange={onChange}
-    >
+    <select name="select" value={value} onChange={onChange}>
       <option value={"one"}>Option 1</option>
       <option value={"two"}>Option 2</option>
     </select>
@@ -17,7 +18,7 @@ function MyDrop({ value, onChange }) {
 
 function App() {
   const [value, setValue] = useState("one");
-  const onChange = (e) => setValue(e.target.value)
+  const onChange = (e) => setValue(e.target.value);
 
   return (
     <div style={{ height: "800px" }}>

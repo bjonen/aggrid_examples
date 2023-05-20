@@ -1,9 +1,17 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, {
+  useMemo,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
 function GridExample() {
+  const gridRef = useRef();
+
   // never changes, so we can use useMemo
   const columnDefs = useMemo(
     () => [
@@ -33,22 +41,40 @@ function GridExample() {
   // changes, needs to be state
   const [rowData, setRowData] = useState();
 
-  // gets called once, no dependencies, loads the grid data
+  // Both works. Not sure why putting this in onGridReady would make sense
   useEffect(() => {
     fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
       .then((resp) => resp.json())
       .then((data) => setRowData(data));
   }, []);
+  // const onGridReady = useCallback((params) => {
+  //   fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
+  //     .then((resp) => resp.json())
+  //     .then((data) => setRowData(data));
+  // }, []);
+
+  const onFirstDataRendered = useCallback((params) => {
+    gridRef.current.columnApi.applyColumnState({
+      state: [
+        { colId: "total" },
+        { colId: "athlete" },
+        { colId: "silver" },
+        { colId: "bronze" },
+      ],
+      applyOrder: true,
+    });
+  }, []);
 
   return (
     <AgGridReact
+      ref={gridRef}
       className="ag-theme-alpine"
       animateRows="true"
       columnDefs={columnDefs}
       defaultColDef={defaultColDef}
       rowData={rowData}
-      rowSelection="multiple"
-      suppressRowClickSelection="true"
+      // onGridReady={onGridReady}
+      onFirstDataRendered={onFirstDataRendered}
     />
   );
 }
