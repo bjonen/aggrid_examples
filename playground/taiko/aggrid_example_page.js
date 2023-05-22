@@ -43,6 +43,21 @@ const {
     await highlight($('[col-id="language"]'), within($('[row-id="0"]')));
     await $('[col-id="language"]', within($('[row-index="0"]'))).text();
     await highlight(text("language"));
+    // check for duplicates
+    await highlight(
+      text(
+        "Kevin Flanagan",
+        below(text("Tony Smith", within($('[col-id="name"]'))))
+      )
+    );
+    // https://docs.taiko.dev/assertions/
+    await assert.ok(
+      !text(
+        "Tony Smith",
+        below(text("Tony Smith", within($('[col-id="name"]'))))
+      ).exists()
+    );
+
     // left in pixels
     await dragAndDrop(text("language"), { left: 150 });
   } catch (error) {
