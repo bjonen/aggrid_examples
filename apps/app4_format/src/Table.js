@@ -95,11 +95,10 @@ const GridExample = () => {
                         : null
 
                 },
-                // Figure out if the column type is applicable to the column
+                // Figure out if the column type is applicable to the column.
                 dataTypeMatcher: (value) => {
                     // Called if a field does not have a cellDataType defined
                     return typeof value === 'string' && !!value.match('\\d{2}/\\d{2}/\\d{4}')
-
                 },
                 // Used in DateStringCellEditorInput
                 // https://github.com/ag-grid/ag-grid/blob/d4306e840bc08c8efa0070c2f563ddd443002fce/grid-community-modules/core/src/ts/rendering/cellEditors/dateStringCellEditor.ts#L59
