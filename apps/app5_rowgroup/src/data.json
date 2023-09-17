@@ -1,0 +1,42 @@
+[
+  {
+    "portf": "pf1",
+    "security": "id1",
+    "weight": 0.3,
+    "bmweight": 0.5,
+    "yield": 5,
+    "issuer": "A"
+  },
+  {
+    "portf": "pf1",
+    "security": "id2",
+    "weight": 0.3,
+    "bmweight": 0.2,
+    "yield": 4,
+    "issuer": "B"
+  },
+  {
+    "portf": "pf1",
+    "security": "id3",
+    "weight": 0.4,
+    "bmweight": 0.3,
+    "yield": 7,
+    "issuer": "A"
+  },
+  {
+    "portf": "pf2",
+    "security": "id1",
+    "weight": 0.1,
+    "bmweight": 0.4,
+    "yield": 5,
+    "issuer": "A"
+  },
+  {
+    "portf": "pf2",
+    "security": "id3",
+    "weight": 0.9,
+    "bmweight": 0.6,
+    "yield": 3,
+    "issuer": "C"
+  }
+]
