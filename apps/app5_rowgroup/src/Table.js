@@ -22,14 +22,7 @@ function GridExample() {
     var weightSum = 0
     var bmWeightSum = 0
     params.values.forEach((value) => {
-      if (value && value.weightedPfSum && value.weightSum) {
-        weightedPfSum += value.weightedPfSum * value.weightSum
-        weightSum += value.weightSum
-      }
-      if (value && value.weightedBmSum && value.bmWeightSum) {
-        weightedBmSum += value.weightedBmSum * value.bmWeightSum
-        bmWeightSum += value.bmWeightSum
-      }
+      // leaf nodes
       if (value && value.weight && value.yield) {
         weightedPfSum += value.weight * value.yield
         weightSum += value.weight
@@ -38,6 +31,15 @@ function GridExample() {
         weightedBmSum += value.bmweight * value.yield
         bmWeightSum += value.bmweight
       }
+      // aggregation of aggregations
+      if (value && value.weightedPfSum && value.weightSum) {
+        weightedPfSum += value.weightedPfSum * value.weightSum
+        weightSum += value.weightSum
+      }
+      if (value && value.weightedBmSum && value.bmWeightSum) {
+        weightedBmSum += value.weightedBmSum * value.bmWeightSum
+        bmWeightSum += value.bmWeightSum
+      }
     });
     return createValueObject(weightedPfSum, weightedBmSum, weightSum, bmWeightSum);
   };
@@ -45,6 +47,7 @@ function GridExample() {
   const createValueObject = (weightedPfSum, weightedBmSum, weightSum, bmWeightSum) => {
     console.log("createValueObject", weightedPfSum, weightedBmSum, weightSum, bmWeightSum)
     return {
+      // Remember aggregation properties on aggregation nodes to recurse
       weightedPfSum: weightedPfSum,
       weightedBmSum: weightedBmSum,
       weightSum: weightSum,
